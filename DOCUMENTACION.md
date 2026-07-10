@@ -24,10 +24,10 @@ Dale al botón verde Create repository.
 4. Conectar el pc conGithub y subir el codigo
 
 * Conectarlo
-git remote add origin https://github.com/rubensimon1/SaaS-LogiTrack.git
+git remote add origi**n https://github.com/rubensimon1/SaaS-LogicTrack.git**
 
 * Modificar la url si tienes algun problema
-git remote set-url origin https://github.com/rubensimon1/saas-logitrack.git
+git remote set-url origin https://github.com/rubensimon1/SaaS-LogicTrack.git
 
 * Eliminar el remote 
 git remote remove origin
