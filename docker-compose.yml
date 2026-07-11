@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # 🐘 Motor de Base de Datos Relacional
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: logictrack-postgres
+    environment:
+      - TZ=Europe/Madrid
+      - POSTGRES_DB=logictrack_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=rootpassword123
+    ports:
+      - "5455:5432" # El puerto 5455 de tu PC apunta al 5432 interno de Docker
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - logictrack-network
+
+  # ⚡ Sistema de Caché en Memoria para el catálogo
+  redis-cache:
+    image: redis:7-alpine
+    container_name: logictrack-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - logictrack-network
+
+  # ✉️ Servidor SMTP de pruebas para facturas (Totalmente gratuito)
+  mailhog-email:
+    image: mailhog/mailhog
+    container_name: logictrack-mailhog
+    ports:
+      - "1025:1025" # Puerto interno para que Spring Boot mande emails
+      - "8025:8025" # Puerto web para que tú veas la bandeja de entrada
+    networks:
+      - logictrack-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  logictrack-network:
+    driver: bridge
