@@ -8,8 +8,8 @@ services:
     environment:
       - TZ=Europe/Madrid
       - POSTGRES_DB=logictrack_db
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=rootpassword123
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - "5455:5432" # El puerto 5455 de tu PC apunta al 5432 interno de Docker
     volumes:
