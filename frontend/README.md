@@ -1,16 +1,29 @@
-# React + Vite
+# LogicTrack ERP - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este directorio contiene el frontend de **LogicTrack**, una aplicación web para la gestión de inventario y ERP desarrollada con React, Vite y Tailwind CSS.
 
-Currently, two official plugins are available:
+## Tecnologías Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+*   **React** (v18+)
+*   **Vite** (para la compilación y el servidor de desarrollo rápido)
+*   **Tailwind CSS** (para los estilos)
+*   **React Router DOM** (para la navegación y enrutamiento)
 
-## React Compiler
+## Scripts Disponibles
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+En el directorio `frontend`, puedes ejecutar:
 
-## Expanding the ESLint configuration
+*   `npm run dev`: Inicia el servidor de desarrollo local.
+*   `npm run build`: Compila la aplicación para producción en la carpeta `dist`.
+*   `npm run lint`: Ejecuta el linter (ESLint) para buscar errores de código.
+*   `npm run preview`: Previsualiza localmente la compilación de producción.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Estructura de Directorios
+
+La estructura bajo `src/` sigue un enfoque modular basado en características (features) y componentes globales:
+
+*   `src/api/`: Configuración global de la API.
+*   `src/assets/`: Archivos estáticos como imágenes y logotipos.
+*   `src/components/`: Componentes globales y compartidos (ej. `Navbar`).
+*   `src/features/`: Módulos de funcionalidad independientes (ej. `auth` e `inventory`).
+*   `src/routes/`: Configuración del enrutamiento de la aplicación (`AppRouter.jsx`).

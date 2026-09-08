@@ -5,11 +5,12 @@ services:
   postgres-db:
     image: postgres:15-alpine
     container_name: logictrack-postgres
+    restart: always
     environment:
       - TZ=Europe/Madrid
       - POSTGRES_DB=logictrack_db
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=4565
     ports:
       - "5455:5432" # El puerto 5455 de tu PC apunta al 5432 interno de Docker
     volumes:
@@ -35,6 +36,35 @@ services:
     ports:
       - "1025:1025" # Puerto interno para que Spring Boot mande emails
       - "8025:8025" # Puerto web para que tú veas la bandeja de entrada
+    networks:
+      - logictrack-network
+
+  # ☕ Backend de Spring Boot
+  backend:
+    build: ./backend
+    container_name: logictrack-backend
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/logictrack_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=4565
+      - SPRING_MAIL_HOST=mailhog-email
+    depends_on:
+      - postgres-db
+    networks:
+      - logictrack-network
+
+  # ⚛️ Frontend de React + Nginx
+  frontend:
+    build: ./frontend
+    container_name: logictrack-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
     networks:
       - logictrack-network
 

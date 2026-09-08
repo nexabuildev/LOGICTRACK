@@ -15,9 +15,10 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**") // Aplicar a todos nuestros endpoints
-                        .allowedOrigins("http://localhost:5173", "http://localhost:3000") // Puertos típicos de React/Vite
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Verbos HTTP permitidos
-                        .allowedHeaders("*") // Permitir cualquier cabecera (como tokens de seguridad futuros)
+                        .allowedOrigins("http://localhost:5173", "http://localhost:3000", "http://localhost", "http://127.0.0.1") // Puertos típicos y Docker Compose
+                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS") // Verbos HTTP permitidos
+                        .allowedHeaders("*") // Permitir cualquier cabecera
+                        .exposedHeaders("X-User-Email", "X-User-Role")
                         .allowCredentials(true); // Permitir el envío de cookies o credenciales de sesión
             }
         };

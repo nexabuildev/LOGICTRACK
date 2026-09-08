@@ -1,23 +1,20 @@
 package com.logictrack.backend.model;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
 public class Product {
 
-    // @Id indica que esta es la Clave Primaria (Primary Key)
     @Id
-    // @GeneratedValue hace que el ID sea autoincremental (1, 2, 3...)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // @Column nos permite definir reglas. Aquí decimos que el SKU no puede ser nulo y debe ser único.
     @Column(nullable = false, unique = true, length = 50)
-    private String sku; // Código único de inventario (Ej: RTX-4090-001)
+    private String sku; 
 
     @Column(nullable = false)
     private String name;
@@ -26,28 +23,53 @@ public class Product {
     private String description;
 
     @Column(nullable = false)
-    private BigDecimal price; // Siempre usamos BigDecimal para dinero, nunca Double o Float
+    private BigDecimal price; 
 
     @Column(nullable = false)
     private Integer stockQuantity;
 
-    // Registra cuándo se añadió el producto al sistema
+    @Column(name = "min_stock_alert", nullable = false)
+    private Integer minStockAlert = 5;
+
+    @Column(name = "serial_number", length = 200)
+    private String serialNumber;
+
+    @Column(length = 2000)
+    private String features;
+
+    @Column(name = "product_condition", length = 50)
+    private String condition = "NUEVO";
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "store_id")
+    private Store store;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    // --- CONSTRUCTORES ---
-    public Product() {
-        // JPA necesita un constructor vacío por defecto
-    }
+    // Cascade relation to delete Kardex transactions if product is deleted
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    private List<StockTransaction> transactions;
 
-    // Un método que se ejecuta automáticamente justo antes de guardar en la BD por primera vez
+    @Column(nullable = false)
+    private Boolean deleted = false;
+
+    public Product() {}
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
-
-    // --- GETTERS Y SETTERS ---
-    // (Para que Spring y React puedan leer y modificar los datos)
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -67,8 +89,34 @@ public class Product {
     public Integer getStockQuantity() { return stockQuantity; }
     public void setStockQuantity(Integer stockQuantity) { this.stockQuantity = stockQuantity; }
 
+    public Integer getMinStockAlert() { return minStockAlert; }
+    public void setMinStockAlert(Integer minStockAlert) { this.minStockAlert = minStockAlert; }
+
+    public String getSerialNumber() { return serialNumber; }
+    public void setSerialNumber(String serialNumber) { this.serialNumber = serialNumber; }
+
+    public String getFeatures() { return features; }
+    public void setFeatures(String features) { this.features = features; }
+
+    public String getCondition() { return condition; }
+    public void setCondition(String condition) { this.condition = condition; }
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+
+    public Store getStore() { return store; }
+    public void setStore(Store store) { this.store = store; }
+
+    public Category getCategory() { return category; }
+    public void setCategory(Category category) { this.category = category; }
+
+
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
+    public List<StockTransaction> getTransactions() { return transactions; }
+    public void setTransactions(List<StockTransaction> transactions) { this.transactions = transactions; }
 
+    public Boolean getDeleted() { return deleted; }
+    public void setDeleted(Boolean deleted) { this.deleted = deleted; }
 }
