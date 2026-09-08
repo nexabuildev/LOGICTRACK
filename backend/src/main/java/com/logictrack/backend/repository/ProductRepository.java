@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepository extends JpaRepository<Product, Long>
 {
     boolean existsBySku(String sku);
+    boolean existsBySkuAndIdNot(String sku, Long id);
+    java.util.List<Product> findByUserEmail(String email);
+    java.util.Optional<Product> findBySku(String sku);
 }

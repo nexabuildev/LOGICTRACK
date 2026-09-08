@@ -1,45 +1,53 @@
-1. Primero vere que cuenta esta conectada a git en local con:
+# 📦 LogiTrack ERP - Sistema de Gestión de Inventario
 
-git config user.name
-git config user.email
+LogiTrack ERP es una aplicación web *Full-Stack* orientada a SaaS (Software as a Service) diseñada para la gestión eficiente de inventarios y control de existencias. Proporciona un panel de control intuitivo y seguro para registrar, monitorizar y administrar productos en tiempo real.
 
-2. Configurar identidad real
+## 🎯 ¿Por qué y para qué existe este proyecto?
 
-git config --global user.name "Rubén Simón"
-git config --global user.email "ruben.sireb@gmail.com"
+Este proyecto nace como la culminación práctica del ciclo de **Desarrollo de Aplicaciones Multiplataforma**, aplicando arquitecturas modernas y patrones de diseño empresariales. Su objetivo principal es resolver un problema real del sector comercial (el descontrol de stock) mediante una plataforma escalable.
 
-*Al usar global recordara esta cuenta para futuros proyectos
+Al mismo tiempo, LogiTrack actúa como una demostración técnica de capacidades *Full-Stack* de nivel profesional, ideal tanto para implementaciones a clientes reales como servicios freelance, demostrando dominio sobre todo el ciclo de vida del software: desde el diseño de la base de datos hasta el despliegue del frontend.
 
-3. Crear el repositorio en github (La nube)
+## ✨ Características Principales
 
-Abre tu navegador y entra en tu cuenta de GitHub.
-Arriba a la derecha, dale al botón + y selecciona New repository.
-Rellena los datos así:
-    Repository name: saas-logitrack
-    Description: ERP B2B para gestión logística y alquiler de hardware.
-    Public / Private: Ponlo en Public (queremos que el portafolio sea visible).
-¡MUY IMPORTANTE! NO marques las casillas de "Add a README", "Add .gitignore" ni "Choose a license". Queremos que el repositorio se cree completamente vacío para que no haya conflictos con los archivos que ya hemos creado en tu local.
-Dale al botón verde Create repository.
+* **Autenticación y Seguridad:** Sistema de registro y login seguro utilizando Spring Security y encriptación de contraseñas con BCrypt.
+* **Dashboard Interactivo:** Interfaz de usuario moderna y minimalista que muestra el estado del inventario en tiempo real.
+* **Gestión de Catálogo:** Creación y visualización de productos con control de SKU, precios y niveles de stock.
+* **Arquitectura SPA:** Navegación fluida sin recargas de página gracias a React Router DOM.
+* **Diseño Responsivo:** Interfaz adaptable a diferentes tamaños de pantalla utilizando Tailwind CSS.
 
-4. Conectar el pc conGithub y subir el codigo
+## 🛠️ Stack Tecnológico
 
-* Conectarlo
-git remote add origi**n https://github.com/rubensimon1/SaaS-LogicTrack.git**
+El proyecto está dividido en dos capas claramente separadas (Frontend y Backend) que se comunican mediante una API REST.
 
-* Modificar la url si tienes algun problema
-git remote set-url origin https://github.com/rubensimon1/SaaS-LogicTrack.git
+### Frontend
+* **Core:** React 18 + Vite
+* **Enrutamiento:** React Router DOM
+* **Estilos:** Tailwind CSS
+* **Arquitectura:** Feature-based routing & components
 
-* Eliminar el remote 
-git remote remove origin
+### Backend
+* **Core:** Java + Spring Boot
+* **Seguridad:** Spring Security
+* **Acceso a Datos:** Spring Data JPA / Hibernate
+* **Base de Datos:** PostgreSQL
 
-* Ver si funciona
-git remote -v
+## 🚀 Instalación y Despliegue Local
 
-* Subir el primer commit
-git commit --allow-empty -m "chore: initial commit"
+### Requisitos previos
+* Node.js (v18 o superior)
+* Java JDK 17 o superior
+* PostgreSQL instalado y ejecutándose
+* Maven
 
-* Renombrar la rama por defecto a main (por estandar actual)
-git branch -M main
+### Configuración del Backend (Spring Boot)
+1. Clona este repositorio.
+2. Abre la carpeta del backend en tu IDE (IntelliJ IDEA recomendado).
+3. Configura tus credenciales de PostgreSQL en el archivo `application.properties`.
+4. Ejecuta la clase principal `BackendApplication.java`. El servidor arrancará en `http://localhost:8080`.
 
-* Crear la rama de desarrollo (develop) a partir de main
-git checkout -b develop
+### Configuración del Frontend (React/Vite)
+1. Abre una terminal y navega a la carpeta `frontend`.
+2. Instala las dependencias:
+   ```bash
+   npm install

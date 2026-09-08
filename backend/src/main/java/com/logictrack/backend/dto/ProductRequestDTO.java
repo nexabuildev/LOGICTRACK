@@ -20,5 +20,14 @@ public record ProductRequestDTO(
 
         @NotNull(message = "El stock inicial es obligatorio")
         @Min(value = 0, message = "El stock no puede ser inferior a 0")
-        Integer stockQuantity
+        Integer stockQuantity,
+
+        Integer minStockAlert,
+
+        String serialNumber,
+        String condition,
+        String features,
+
+        String userEmail,
+        Long storeId
 ) {}
